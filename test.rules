@@ -1,5 +1,6 @@
-alert tcp any any ->any 3399 (content:"login"; content:"Initial"; flow:to_server,established; flowbits:set,is_first_packet; flowbits:noalert;)
+alert tcp any any ->any 3399 (content:"login"; content:"Initial"; \
+    flow:to_server,established; flowbits:set,is_first_packet; flowbits:noalert; sid=10001;)
 alert tcp any any ->any 3399 (flowbits:isset,is_first_packet; \
     pcre:"/^([1-9]?\\d|1\\d{2}|2[0-4]\\d|25[0-5])(\\.([1-9]?\\d|1\\d{2}|2[0-4]\\d|25[0-5])){3}$:^([1-9]?\\d|[1-5]\\d{4}|6[0-4]\\d{3}|65[0-4]\\d{2}|655[0-2]\\d|6553[0-5])$/"; \
-    flowbits:set,is_second_packet; flowbits:noalert;)
+    flowbits:set,is_second_packet; flowbits:noalert; sid=10002;)
 alert tcp any any ->any 3399 (msg:"bot founded"; flowbits:isset,is_second_packet; sid:1000001;)
